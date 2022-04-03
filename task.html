@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<head>
+    <title>Crud Operation</title>
+    <style>
+        body{
+  /*  background-image: url('background.jpg');*/
+    background-color: white;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+:root{
+    --gradient:linear-gradient(90deg, #75c8ee, #86d0fc);
+}
+
+*{
+    font-family: 'Open Sans', sans-serif;
+    margin:0; padding:0;
+    box-sizing: border-box;
+    border:none; outline: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+}
+
+*::selection{
+    background:#8cd0f7;
+    color:#fff;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+html::-webkit-scrollbar{
+    width:1.5rem;
+}
+
+html::-webkit-scrollbar-track{
+    background:#333;
+}
+
+html::-webkit-scrollbar-thumb{
+    background:linear-gradient(#f1c40f, #f39c12);
+}
+
+section{
+    min-height: 100vh;
+    padding:1rem 7%;
+    padding-top:6rem;
+}
+
+.btn{
+    padding:.7rem 3rem;
+    font-size: 2rem;
+    color:#fff;
+    background:var(--gradient);
+    border-radius: 5rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    box-shadow: 0 .1rem .3rem rgba(0,0,0,.3);
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.btn::before{
+    content: '';
+    position: absolute;
+    top:-1rem; left:-100%;
+    background:#fff9;
+    height:150%;
+    width:20%;
+    transform: rotate(25deg);
+    z-index: -1;
+}
+
+.btn:hover::before{
+    transition: .3s linear;
+    left: 120%;
+}
+
+.heading{
+    color:#444;
+    padding:1rem;
+    font-size: 4rem;
+    text-align: center;
+}
+
+header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top:0; left: 0;
+    z-index: 1000;
+    padding:1.5rem 7%;
+    background:var(--gradient);
+    box-shadow: 0 .1rem .3rem rgba(0,0,0,.3);
+}
+
+header .logo{
+    color:#fff;
+    font-size: 2.5rem;
+}
+
+header .navbar ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+}
+
+header .navbar ul li{
+    margin:0 1rem;
+}
+
+header .navbar ul li a{
+    font-size: 2rem;
+    color:#fff;
+}
+
+header .navbar ul li a.active,
+header .navbar ul li a:hover{
+    color:#444;
+}
+
+header #login{
+    font-size: 3rem;
+    color:#fff;
+    cursor: pointer;
+}
+
+header #login:hover{
+    color:#444;
+}
+
+header #menu{
+    font-size: 3rem;
+    color:#fff;
+    cursor: pointer;
+    display: none;
+}
+
+
+
+
+/* media queries  */
+
+@media (max-width:768px){
+
+    html{
+        font-size: 55%;
+    }
+
+    header #menu{
+        display: block;
+    }
+    img{
+        width: 5px;
+        height: 5px;
+        
+    }
+
+    header .navbar{
+        position: fixed;
+        top:-120%; left:0;
+        width:100%;
+        background:#444;
+    }
+
+    header .navbar ul{
+        flex-flow: column;
+        padding:2rem 0;
+    }
+
+    header .navbar ul li{
+        margin:1.5rem 0;
+        text-align: center;
+        width:100%;
+    }
+
+    header .navbar ul li a{
+        font-size: 2.5rem;
+        display: block;
+    }
+
+    header .navbar ul li a.active,
+    header .navbar ul li a:hover{
+        color:#f39c12;
+    }
+
+    .fa-times{
+        transform: rotate(180deg);
+    }
+
+    header .navbar.nav-toggle{
+        top:6.4rem;
+    }
+
+    .home h1{
+        font-size: 4rem;
+    }
+
+    .home p{
+        width: auto;
+    }
+
+    .teacher p{
+        width:auto;
+    }
+
+    .contact .row .image{
+        display: none;
+    }
+
+}
+
+table{
+    width: 80%;
+    margin: 40px auto;
+    background: #8cd0f7;
+}
+
+table.list{
+    text-align: center;
+    width: 100%;
+    font-size: 19px;
+}
+table .table{
+    font-size: 15px;
+}
+
+td{
+    border: 1px solid rgb(204,200,200);
+    text-align: left;
+    padding: 8px 15px;
+}
+
+tr:nth-child(even), table.list thread> tr{
+    background-color: rgb(204,200,200);
+}
+
+input[type="text"],input[type="number"]{
+    width:95%;
+    padding:12px 20px;
+    margin:8px 0;
+    display: inline-block;
+    border: 1px solid rgb(165,161,161);
+    border-radius: 4px;
+}
+
+input[type="submit"],input[type="reset"]{
+    background: #eee;
+    padding:6px 12px;
+    margin:15px 0 10px;
+    display: inline-block;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-size: 15px;
+    outline: none;
+}
+
+input[type="submit"]:hover{
+    background: #4b99d8;
+}
+
+input[type="reset"]:hover{
+    background: #4b99d8;
+}
+
+button{
+    background: #eee;
+    padding:6px 12px;
+    margin:15px 0 10px;
+    display: inline-block;
+    border: none;
+    border-radius: 30px;
+    font-size: 2rem;
+    cursor: pointer;
+    outline: none;
+}
+
+button:hover{
+    background:#4b99d8 ;
+}
+
+
+    </style>
+</head>
+
+<body>
+    <header>
+
+        <div id="menu" class="fas fa-bars"></div>
+    
+        <img src="data:image/png;base64,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" alt="" width="90px" height="80px" style="float: left;">
+    
+        
+    
+        <nav class="navbar">
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a class="active" href="task.html">Tasks</a></li>
+                <li><a  href="courses.html">Courses</a></li>
+               
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br><br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <td>
+                <form autocomplete="off" onsubmit="onFormSubmit()">
+                    <div class="table">
+                        <label for="productCode">Course Name</label>
+                        <input type="text" name="productCode" id="productCode">
+                    </div>
+                    <div class="table">
+                        <label for="product">Status</label>
+                        <input type="text" name="product" id="product">
+                    </div>
+                    <div class="table">
+                        <label for="qty">Due Date</label>
+                        <input type="date" name="qty" id="qty">
+                    </div>
+                    
+
+                    <div class="form_action--button">
+                        <input type="submit" value="Add">
+                        <input type="reset" value="Reset">
+                    </div>
+                </form>
+
+                <td>
+                    <table class="list" id="storeList">
+                        <thead>
+                            <tr>
+                                <th>Course Name</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </td>
+            </td>
+        </tr>
+    </table>
+    <script >
+        var selectedRow = null
+
+function onFormSubmit(e) {
+	event.preventDefault();
+        var formData = readFormData();
+        if (selectedRow == null){
+            insertNewRecord(formData);
+		}
+        else{
+            updateRecord(formData);
+		}
+        resetForm();    
+}
+
+//Retrieve the data
+function readFormData() {
+    var formData = {};
+    formData["productCode"] = document.getElementById("productCode").value;
+    formData["product"] = document.getElementById("product").value;
+    formData["qty"] = document.getElementById("qty").value;
+   
+    return formData;
+}
+
+//Insert the data
+function insertNewRecord(data) {
+    var table = document.getElementById("storeList").getElementsByTagName('tbody')[0];
+    var newRow = table.insertRow(table.length);
+    cell1 = newRow.insertCell(0);
+		cell1.innerHTML = data.productCode;
+    cell2 = newRow.insertCell(1);
+		cell2.innerHTML = data.product;
+    cell3 = newRow.insertCell(2);
+		cell3.innerHTML = data.qty;
+   
+    cell4 = newRow.insertCell(3);
+        cell4.innerHTML = `<button onClick="onEdit(this)">Edit</button> <button onClick="onDelete(this)">Delete</button>`;
+}
+
+//Edit the data
+function onEdit(td) {
+    selectedRow = td.parentElement.parentElement;
+    document.getElementById("productCode").value = selectedRow.cells[0].innerHTML;
+    document.getElementById("product").value = selectedRow.cells[1].innerHTML;
+    document.getElementById("qty").value = selectedRow.cells[2].innerHTML;
+} 
+function updateRecord(formData) {
+    selectedRow.cells[0].innerHTML = formData.productCode;
+    selectedRow.cells[1].innerHTML = formData.product;
+    selectedRow.cells[2].innerHTML = formData.qty;
+   
+}
+
+//Delete the data
+function onDelete(td) {
+    if (confirm('Do you want to delete this record?')) {
+        row = td.parentElement.parentElement;
+        document.getElementById('storeList').deleteRow(row.rowIndex);
+        resetForm();
+    }
+}
+
+//Reset the data
+function resetForm() {
+    document.getElementById("productCode").value = '';
+    document.getElementById("product").value = '';
+    document.getElementById("qty").value = '';
+
+    selectedRow = null;
+}
+
+    </script>
+</body>
+</html>
